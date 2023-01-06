@@ -14,8 +14,6 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import base64
-import email
 from email.mime.text import MIMEText
 from email.message import EmailMessage
 
