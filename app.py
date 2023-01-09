@@ -25,9 +25,6 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 flow = Flow.from_client_secrets_file(
       'credential1.json', SCOPES,redirect_uri='http://34.93.119.62.nip.io:8000/callback')
 
-@app.route('/')
-def cool():
-    return("HI")
 
 @app.route('/authorize')
 def authorize():
@@ -40,15 +37,15 @@ def authorize():
 def callback():
 
   creds = None
-  if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-  if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-          creds.refresh(Request())
-        else:
-          code = request.args.get('code')
-          flow.fetch_token(code=code)
-          creds = flow.credentials
+  #if os.path.exists('token.json'):
+       # creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+  #if not creds or not creds.valid:
+        #if creds and creds.expired and creds.refresh_token:
+         # creds.refresh(Request())
+       # else:
+  code = request.args.get('code')
+  flow.fetch_token(code=code)
+  creds = flow.credentials
 
   with open('token.json', 'w') as token:
             token.write(creds.to_json())
@@ -56,7 +53,7 @@ def callback():
   return("Success")
 
 if __name__ == '__main__':
-  app.run(debug=True, port=8000)
+  app.run(host='0.0.0.0', port=8000)
 
 
 
