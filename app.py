@@ -23,15 +23,16 @@ app = Flask(__name__)
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 flow = Flow.from_client_secrets_file(
-      'credentials1.json', SCOPES,redirect_uri='http://127.0.0.1:8000/callback')
+      'credential1.json', SCOPES,redirect_uri='http://34.93.119.62.nip.io:8000/callback')
 
+@app.route('/')
+def cool():
+    return("HI")
 
 @app.route('/authorize')
 def authorize():
    
-   if os.path.exists('token.json'):
-      return("Already permitted")
-   auth_url, _ = flow.authorization_url()
+   auth_url, _ = flow.authorization_url(access_type='offline')
    return redirect(auth_url)
 
 
